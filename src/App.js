@@ -1,8 +1,14 @@
+//styles
 import './App.scss';
+
+//Components
 import {Header} from "./Components/Header/Header";
 import {Categories} from "./Components/Categories/Categories";
 import {Sort} from "./Components/Sort/Sort";
 import {PizzaBlock} from "./Components/Pizza-block/Pizza-block";
+
+//data
+import data from "../src/Data/data.json";
 
 function App() {
   return (
@@ -16,7 +22,11 @@ function App() {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-            <PizzaBlock/>
+            {
+              data.pizzas.map((elem, id) => {
+                return <PizzaBlock key={id} data={elem}/>
+              })
+            }
           </div>
         </div>
       </div>
@@ -25,3 +35,4 @@ function App() {
 }
 
 export default App;
+<PizzaBlock data={data}/>

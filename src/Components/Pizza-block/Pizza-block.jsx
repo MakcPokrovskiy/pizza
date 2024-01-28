@@ -1,29 +1,45 @@
 import './pizza-block.scss';
 import {Button} from "../Button/Button";
+import {useState} from "react";
 
-export const PizzaBlock = () => {
+export const PizzaBlock = ({data}) => {
+  const [typeNameActive, setTypeNameActive] = useState(0);
+  const [sizePizza, setSizePizza] = useState(0);
+
+
+  const typeNames = ['тонкое', 'традиционное']
   return (
     <div className="pizza-block">
       <img
         className="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
+        src={data.imageUrl}
         alt="Pizza"
       />
-      <h4 className="pizza-block__title">Чизбургер-пицца</h4>
+      <h4 className="pizza-block__title">{data.name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {
+            data.types.map((elem, index) => {
+              return <li key={index}
+                         onClick={() => setTypeNameActive(index)}
+                         className={typeNameActive === index ? 'active' : ''}
+              >{typeNames[elem]}</li>
+            })
+          }
         </ul>
         <ul>
-          <li className="active">26 см.
-          </li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {
+            data.sizes.map((size, index) => {
+              return <li key={index}
+                         onClick={() => setSizePizza(index)}
+                         className={sizePizza === index ? 'active' : ''}
+              >{size}</li>
+            })
+          }
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="pizza-block__price">от {data.price} ₽</div>
         <Button/>
       </div>
     </div>
